@@ -23,7 +23,6 @@ SELECT
 FROM Property p
 LEFT JOIN Review r ON p.property_id = r.property_id;
 
-
 -- FULL OUTER JOIN Retrieve all users and all bookings (even if not linked to each other)
 SELECT 
     u.user_id,
