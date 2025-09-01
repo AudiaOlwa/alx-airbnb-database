@@ -32,7 +32,7 @@ This document presents two SQL queries that demonstrate the use of **subqueries*
 
 ## 1. Non-Correlated Subquery – Properties with an Average Rating > 4.0
 
-```sql
+--sql
 SELECT 
     p.property_id,
     p.name AS property_name
@@ -42,4 +42,29 @@ WHERE p.property_id IN (
     FROM Review r
     GROUP BY r.property_id
     HAVING AVG(r.rating) > 4.0
-);
+); 
+
+-------------------------------------------------------------
+
+
+# SQL Aggregation and Window Functions Documentation
+
+This document demonstrates two types of SQL queries:  
+1. **Aggregation with GROUP BY** using the `COUNT` function.  
+2. **Window functions** (`RANK`, `ROW_NUMBER`) to rank results.  
+
+---
+
+## 1. Aggregation with COUNT and GROUP BY – Total bookings per user
+
+--sql
+-- Retrieve the total number of bookings made by each user
+SELECT 
+    u.user_id,                         -- Unique identifier of the user
+    u.first_name,                      -- User's first name
+    u.last_name,                       -- User's last name
+    COUNT(b.booking_id) AS total_bookings  -- Total bookings made by this user
+FROM User u
+LEFT JOIN Booking b ON u.user_id = b.user_id   -- Join users with their bookings
+GROUP BY u.user_id, u.first_name, u.last_name  -- Group by user to count their bookings
+ORDER BY total_bookings DESC;                  -- Sort users by total bookings (highest first)
